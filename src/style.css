@@ -26,7 +26,8 @@ input[type="text"] {
 button {
     padding: 10px 15px;
     margin-left: 10px;
-    background-color: #5cb85c;
+    background-color: #007bff;
+    /* changed from #5cb85c (green) to #007bff (blue) */
     color: white;
     border: none;
     border-radius: 4px;
@@ -34,7 +35,8 @@ button {
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #0056b3;
+    /* changed from #4cae4c (green) to #0056b3 (blue) */
 }
 
 ul {
