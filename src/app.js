@@ -6,32 +6,54 @@ const addTodoButton = document.getElementById('add-todo');
 
 let todos = [];
 
-function renderTodos() {
+// Load todos from localStorage
+const loadTodos = () => {
+    const saved = localStorage.getItem('todos');
+    todos = saved ? JSON.parse(saved) : [];
+};
+
+// Save todos to localStorage
+const saveTodos = () => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+// Render the todo list
+const renderTodos = () => {
     todoList.innerHTML = '';
-    todos.forEach((todo, index) => {
+    todos.forEach((todo) => {
         const li = document.createElement('li');
-        li.textContent = todo;
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.onclick = () => removeTodo(index);
-        li.appendChild(removeButton);
+        li.textContent = todo.text;
+        // Delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteTodo(todo.id);
+        li.appendChild(deleteBtn);
         todoList.appendChild(li);
     });
-}
+};
 
-function addTodo() {
+// Add a new todo
+const addTodo = () => {
     const todoText = todoInput.value.trim();
     if (todoText) {
-        todos.push(todoText);
-        todoInput.value = '';
+        const newTodo = {
+            id: Date.now(),
+            text: todoText,
+            completed: false
+        };
+        todos.push(newTodo);
+        saveTodos();
         renderTodos();
+        todoInput.value = '';
     }
-}
+};
 
-function removeTodo(index) {
-    todos.splice(index, 1);
+// Delete a todo by id
+const deleteTodo = (id) => {
+    todos = todos.filter(todo => todo.id !== id);
+    saveTodos();
     renderTodos();
-}
+};
 
 addTodoButton.addEventListener('click', addTodo);
 todoInput.addEventListener('keypress', (event) => {
@@ -39,3 +61,7 @@ todoInput.addEventListener('keypress', (event) => {
         addTodo();
     }
 });
+
+// Initial load
+loadTodos();
+renderTodos();
