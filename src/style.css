@@ -17,6 +17,7 @@ body {
 .todo-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px;
     max-width: 600px;
@@ -26,7 +27,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #2d3748;
+    color: #667eea;
     font-size: 2.5rem;
     margin-bottom: 30px;
     font-weight: 700;
@@ -34,6 +35,7 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* Fallback color for browsers that don't support background-clip: text */
 }
 
 .todo-container > input[type="text"] {
